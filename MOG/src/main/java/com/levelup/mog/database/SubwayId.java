@@ -27,7 +27,7 @@ public class SubwayId {
     }
 
     public SubwayIdDto SubwayIdToDTO(){
-        SubwayIdDto dto = new SubwayIdDto(line, name);
+        SubwayIdDto dto = new SubwayIdDto(id, line, name);
         return dto;
     }
 
