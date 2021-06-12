@@ -2,35 +2,19 @@ package com.levelup.mog.database;
 
 import com.levelup.mog.model.SubwayIdDto;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "SubwayId")
+@Table(name = "subway_id")
 public class SubwayId {
-    @Id
-    private String id;
-    private String line;
-    private String name;
+    @EmbeddedId
+    private SubwayIdEmp subwayIdEmp;
 
-    public String getId() {
-        return id;
+    public SubwayIdDto SubwayIdToDto(){
+
+        SubwayIdDto convertDto = new SubwayIdDto(subwayIdEmp.getLineNumber(), subwayIdEmp.getStationName());
+
+        return convertDto;
     }
-
-    public String getLine() {
-        return line;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public SubwayIdDto SubwayIdToDTO(){
-        SubwayIdDto dto = new SubwayIdDto(id, line, name);
-        return dto;
-    }
-
-
 }
 

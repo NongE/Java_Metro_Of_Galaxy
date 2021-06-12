@@ -1,26 +1,28 @@
 package com.levelup.mog.model;
 
 public class SubwayIdDto {
-    private String id;
-    private String line;
-    private String name;
 
-    public String getId() {
-        return id;
+    private String lineNumber;
+    private String stationName;
+
+    public SubwayIdDto(String lineNumber, String stationName) {
+        this.lineNumber = lineNumber;
+        this.stationName = stationName;
     }
 
-    public String getLine() {
-        return line;
+    public String getLineNumber() {
+        return lineNumber;
     }
 
-    public String getName() {
-        return name;
+    public void setLineNumber(String lineNumber) {
+        this.lineNumber = lineNumber;
     }
 
-    public SubwayIdDto(String id, String line, String name) {
-        this.id = id;
-        this.line = line;
-        this.name = name;
+    public String getStationName() {
+        return stationName;
+    }
 
+    public void setStationName(String stationName) {
+        this.stationName = stationName;
     }
 }

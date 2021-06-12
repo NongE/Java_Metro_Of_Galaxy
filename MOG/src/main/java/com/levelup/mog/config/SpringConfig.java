@@ -1,5 +1,6 @@
 package com.levelup.mog.config;
 
+import com.levelup.mog.aop.TimeCalculation;
 import com.levelup.mog.repository.MogRepository;
 import com.levelup.mog.service.MogService;
 import org.springframework.context.annotation.Bean;
@@ -17,5 +18,10 @@ public class SpringConfig {
     @Bean
     public MogService mogService(){
         return new MogService(mogRepository);
+    }
+
+    @Bean
+    public TimeCalculation timeCalculation(){
+        return new TimeCalculation();
     }
 }

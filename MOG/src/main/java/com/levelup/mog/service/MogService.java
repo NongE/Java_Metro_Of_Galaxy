@@ -2,24 +2,33 @@ package com.levelup.mog.service;
 
 import com.levelup.mog.database.SubwayId;
 import com.levelup.mog.model.SubwayIdDto;
-import com.levelup.mog.model.response.GetStationResponse;
 import com.levelup.mog.repository.MogRepository;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
+import java.util.TreeSet;
 
 public class MogService {
 
-    private MogRepository mogRepository;
+    private final MogRepository mogRepository;
 
     public MogService(MogRepository mogRepository) {
         this.mogRepository = mogRepository;
     }
 
-    public Optional<List<GetStationResponse>> getStationNames(String stationName){
-        return mogRepository.findByLine(stationName);
+    public List<String> getStationNames() {
+
+        List<String> stationNames = new ArrayList<>();
+
+        mogRepository.findAll().forEach(stationIndex -> {
+                    stationNames.add(stationIndex.SubwayIdToDto().getStationName());
+                }
+        );
+
+        TreeSet<String> deduplicationStationName = new TreeSet<>(stationNames);
+
+        return new ArrayList<>(deduplicationStationName);
     }
 
 }
