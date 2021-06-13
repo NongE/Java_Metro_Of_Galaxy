@@ -31,7 +31,7 @@ public class MogController {
             HttpServletRequest request
     ) {
         // Call get stations
-        logger.info("API Call: get_stations!");
+        logger.info("API Call: get_stations");
         List<String> getStations = mogService.getStationNames();
 
         // Put stations list to ResponseMessage
@@ -44,5 +44,25 @@ public class MogController {
         // Return ResponseEntity
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/get_station_info")
+    public ResponseEntity<ResponseMessage> get_station_info(
+            HttpServletRequest request
+    ) {
+        // Call get stations
+        logger.info("API Call: get_stations");
+        List<String> getStations = mogService.getStationInfo("건대입구", "월", 1);
+
+        // Put stations list to ResponseMessage
+        ResponseMessage result = new ResponseMessage();
+        result.setPath(request.getRequestURI());
+        result.setStatus(HttpStatus.OK.toString());
+        result.setResult("success");
+        result.setData(getStations);
+
+        // Return ResponseEntity
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 }
