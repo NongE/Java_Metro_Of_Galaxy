@@ -9,27 +9,34 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "subway_info")
-public class SubwayInfo {
+@Table(name = "subway_people_info")
+public class SubwayPeopleInfo {
 
     @EmbeddedId
     private SubwayIdFkEmb subwayIdFkEmb;
 
-    @Column(name = "tel_number")
-    private String telNumber;
+    @Column(name = "_date")
+    private String date;
 
-    @Column(name = "address")
-    private String address;
+    @Column(name = "_time")
+    private Integer time;
+
+    @Column(name = "_people")
+    private Integer people;
 
     public SubwayIdDto SubwayIdToDto(){
         return new SubwayIdDto(subwayIdFkEmb.getLineNumber(), subwayIdFkEmb.getStationName());
     }
 
-    public String getTelNumber() {
-        return telNumber;
+    public String getDate() {
+        return date;
     }
 
-    public String getAddress() {
-        return address;
+    public Integer getTime() {
+        return time;
+    }
+
+    public Integer getPeople() {
+        return people;
     }
 }

@@ -1,4 +1,4 @@
-package com.levelup.mog.model;
+package com.levelup.mog.model.dto;
 
 public class SubwayIdDto {
 

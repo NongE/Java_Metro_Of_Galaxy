@@ -1,10 +1,10 @@
-package com.levelup.mog.database;
+package com.levelup.mog.database.emb;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Embeddable
-public class SubwayIdEmp implements Serializable {
+public class SubwayIdEmb implements Serializable {
 
     @Column(name = "line_number")
     private String lineNumber;

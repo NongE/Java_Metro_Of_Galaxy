@@ -1,6 +1,7 @@
 package com.levelup.mog.database;
 
-import com.levelup.mog.model.SubwayIdDto;
+import com.levelup.mog.database.emb.SubwayIdEmb;
+import com.levelup.mog.model.dto.SubwayIdDto;
 
 import javax.persistence.*;
 
@@ -8,11 +9,11 @@ import javax.persistence.*;
 @Table(name = "subway_id")
 public class SubwayId {
     @EmbeddedId
-    private SubwayIdEmp subwayIdEmp;
+    private SubwayIdEmb subwayIdEmb;
 
     public SubwayIdDto SubwayIdToDto(){
 
-        SubwayIdDto convertDto = new SubwayIdDto(subwayIdEmp.getLineNumber(), subwayIdEmp.getStationName());
+        SubwayIdDto convertDto = new SubwayIdDto(subwayIdEmb.getLineNumber(), subwayIdEmb.getStationName());
 
         return convertDto;
     }

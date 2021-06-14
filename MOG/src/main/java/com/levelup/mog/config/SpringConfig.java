@@ -2,7 +2,8 @@ package com.levelup.mog.config;
 
 import com.levelup.mog.aop.TimeCalculation;
 import com.levelup.mog.repository.MogRepository;
-import com.levelup.mog.repository.MogSubwayIntoRepository;
+import com.levelup.mog.repository.MogSubwayInfoRepository;
+import com.levelup.mog.repository.MogSubwayPeopleInfoRepository;
 import com.levelup.mog.service.MogService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,16 +12,18 @@ import org.springframework.context.annotation.Configuration;
 public class SpringConfig {
 
     private final MogRepository mogRepository;
-    private final MogSubwayIntoRepository mogSubwayIntoRepository;
+    private final MogSubwayInfoRepository mogSubwayInfoRepository;
+    private final MogSubwayPeopleInfoRepository mogSubwayPeopleInfoRepository;
 
-    public SpringConfig(MogRepository mogRepository, MogSubwayIntoRepository mogSubwayIntoRepository) {
+    public SpringConfig(MogRepository mogRepository, MogSubwayInfoRepository mogSubwayInfoRepository, MogSubwayPeopleInfoRepository mogSubwayPeopleInfoRepository) {
         this.mogRepository = mogRepository;
-        this.mogSubwayIntoRepository = mogSubwayIntoRepository;
+        this.mogSubwayInfoRepository = mogSubwayInfoRepository;
+        this.mogSubwayPeopleInfoRepository = mogSubwayPeopleInfoRepository;
     }
 
     @Bean
     public MogService mogService(){
-        return new MogService(mogRepository, mogSubwayIntoRepository);
+        return new MogService(mogRepository, mogSubwayInfoRepository, mogSubwayPeopleInfoRepository);
     }
 
     @Bean
