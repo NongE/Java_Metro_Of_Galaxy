@@ -52,8 +52,8 @@ public class MogService {
         mogRepository.findBySubwayIdEmbStationName(stationName).forEach(subwayId ->{
 
             GetStationInfoResponse getStationInfoResponse = new GetStationInfoResponse();
+
             String lineNumber = subwayId.SubwayIdToDto().getLineNumber();
-            logger.info(lineNumber);
             SubwayInfo stationInfo = mogSubwayInfoRepository.findBySubwayIdFkEmbLineNumberAndSubwayIdFkEmbStationName(lineNumber, stationName);
             SubwayPeopleInfo peopleInfo = mogSubwayPeopleInfoRepository.findBySubwayIdFkEmbLineNumberAndSubwayIdFkEmbStationNameAndDateAndTime(lineNumber, stationName, date, time);
 
