@@ -1,16 +1,25 @@
 package com.levelup.mog.controller;
 
+import com.levelup.mog.model.dto.SubwayUser;
 import com.levelup.mog.model.request.GetStationInfoRequest;
 import com.levelup.mog.model.response.GetStationInfoResponse;
 import com.levelup.mog.model.response.ResponseMessage;
 import com.levelup.mog.service.MogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 
@@ -29,10 +38,25 @@ public class MogController {
     @GetMapping(value = "/get_stations")
     public ResponseEntity<ResponseMessage> get_stations(
             HttpServletRequest request
-    ) {
+    ) throws UnsupportedEncodingException {
         // Call get stations
         logger.info("API Call: get_stations");
         List<String> getStations = mogService.getStationNames();
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("application", "json", StandardCharsets.UTF_8));
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+//        UriComponents build = UriComponentsBuilder.fromHttpUrl(url)
+//                .build(false)
+//                .encode(StandardCharsets.UTF_8);
+//
+//        System.out.println(build.toString());
+//        SubwayUser su = restTemplate.exchange(build.toString(), HttpMethod.GET, entity, SubwayUser.class).getBody();
+//
+//        System.out.println(su);
+
 
         // Put stations list to ResponseMessage
         ResponseMessage result = new ResponseMessage();
