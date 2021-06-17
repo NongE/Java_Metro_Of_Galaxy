@@ -1,5 +1,6 @@
 package com.levelup.mog.service;
 
+import com.levelup.mog.config.SetProperty;
 import com.levelup.mog.controller.MogController;
 import com.levelup.mog.database.SubwayInfo;
 import com.levelup.mog.database.SubwayPeopleInfo;
@@ -21,6 +22,7 @@ public class MogService {
     private final MogSubwayInfoRepository mogSubwayInfoRepository;
     private final MogSubwayPeopleInfoRepository mogSubwayPeopleInfoRepository;
 
+
     private final Logger logger = LoggerFactory.getLogger(MogController.class);
 
     public MogService(MogRepository mogRepository, MogSubwayInfoRepository mogSubwayInfoRepository, MogSubwayPeopleInfoRepository mogSubwayPeopleInfoRepository) {
@@ -37,17 +39,24 @@ public class MogService {
                     stationNames.add(stationIndex.SubwayIdToDto().getStationName());
                 }
         );
-
         TreeSet<String> deduplicationStationName = new TreeSet<>(stationNames);
 
         return new ArrayList<>(deduplicationStationName);
     }
 
 
+    public List<String> getAllStationLines(String stationName){
+
+        List<String> stationLines = new ArrayList<>();
+        mogRepository.findBySubwayIdEmbStationName(stationName).forEach(subwayId -> {
+            stationLines.add(subwayId.SubwayIdToDto().getLineNumber());
+        });
+        return stationLines;
+    }
+
     public List<GetStationInfoResponse> getStationInfo(String stationName, String date, int time) {
 
         List<GetStationInfoResponse> stationInfos = new ArrayList<>();
-
 
         mogRepository.findBySubwayIdEmbStationName(stationName).forEach(subwayId ->{
 

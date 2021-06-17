@@ -14,11 +14,13 @@ public class SpringConfig {
     private final MogRepository mogRepository;
     private final MogSubwayInfoRepository mogSubwayInfoRepository;
     private final MogSubwayPeopleInfoRepository mogSubwayPeopleInfoRepository;
+    private final SetProperty setProperty;
 
-    public SpringConfig(MogRepository mogRepository, MogSubwayInfoRepository mogSubwayInfoRepository, MogSubwayPeopleInfoRepository mogSubwayPeopleInfoRepository) {
+    public SpringConfig(MogRepository mogRepository, MogSubwayInfoRepository mogSubwayInfoRepository, MogSubwayPeopleInfoRepository mogSubwayPeopleInfoRepository, SetProperty setProperty) {
         this.mogRepository = mogRepository;
         this.mogSubwayInfoRepository = mogSubwayInfoRepository;
         this.mogSubwayPeopleInfoRepository = mogSubwayPeopleInfoRepository;
+        this.setProperty = setProperty;
     }
 
     @Bean
