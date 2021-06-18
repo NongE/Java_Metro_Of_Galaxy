@@ -4,6 +4,7 @@ public class GetStationInfoRequest {
 
     private String stationName;
     private String date;
+    private String day;
     private int time;
 
     public String getStationName() {
@@ -28,5 +29,13 @@ public class GetStationInfoRequest {
 
     public void setTime(int time) {
         this.time = time;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
     }
 }

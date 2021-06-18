@@ -11,7 +11,7 @@ public class ResponseMessage {
     String path = null;
     String status = null;
     String result = null;
-    List<?> data = null;
+    Object data = null;
 
     public void setPath(String path) {
         this.path = path;
@@ -25,7 +25,7 @@ public class ResponseMessage {
         this.result = result;
     }
 
-    public void setData(List<?> data) {
+    public void setData(Object data) {
         this.data = data;
     }
 
@@ -41,7 +41,7 @@ public class ResponseMessage {
         return result;
     }
 
-    public List<?> getData() {
+    public Object getData() {
         return data;
     }
 

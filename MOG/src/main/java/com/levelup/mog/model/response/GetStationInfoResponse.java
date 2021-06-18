@@ -12,7 +12,7 @@ public class GetStationInfoResponse {
     private String telNumber = null;
     private String address = null;
     private Integer people = null;
-    private List<Boolean> seatPredict = new ArrayList<>();
+    private Integer seatPredict = null;
 
     public String getLine() {
         return line;
@@ -46,11 +46,11 @@ public class GetStationInfoResponse {
         this.people = people;
     }
 
-    public List<Boolean> getSeatPredict() {
+    public Integer getSeatPredict() {
         return seatPredict;
     }
 
-    public void setSeatPredict(List<Boolean> seatPredict) {
+    public void setSeatPredict(Integer seatPredict) {
         this.seatPredict = seatPredict;
     }
 
