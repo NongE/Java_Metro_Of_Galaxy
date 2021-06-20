@@ -1,8 +1,7 @@
 package com.levelup.mog.database;
 
-import com.levelup.mog.database.emb.PredictSubwayUserFkEmb;
-import com.levelup.mog.database.emb.SubwayIdFkEmb;
-import com.levelup.mog.model.dto.SubwayIdDto;
+import com.levelup.mog.database.emb.PredictSubwayUserEmb;
+import com.levelup.mog.model.dto.PredictSubwayUserDto;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -14,17 +13,27 @@ import javax.persistence.Table;
 public class PredictSubwayUser {
 
     @EmbeddedId
-    private PredictSubwayUserFkEmb predictSubwayUserFkEmb;
+    private PredictSubwayUserEmb predictSubwayUserEmb;
 
     @Column(name = "predict_seat")
     private Integer predictSeat;
 
-    public SubwayIdDto SubwayIdToDto(){
-        return new SubwayIdDto(predictSubwayUserFkEmb.getLineNumber(), predictSubwayUserFkEmb.getStationName());
+
+    public PredictSubwayUserDto PredictSubwayUserToDto(){
+
+        PredictSubwayUserDto predictDto = new PredictSubwayUserDto();
+        predictDto.getPredictSubwayUserFkEmbDto().setLineNumber(predictSubwayUserEmb.getLineNumber());
+        predictDto.getPredictSubwayUserFkEmbDto().setStationName(predictSubwayUserEmb.getStationName());
+        predictDto.getPredictSubwayUserFkEmbDto().setDay(predictSubwayUserEmb.getDay());
+        predictDto.getPredictSubwayUserFkEmbDto().setTime(predictSubwayUserEmb.getTime());
+
+        return predictDto;
+
     }
 
-    public PredictSubwayUserFkEmb getPredictSubwayUserFkEmb() {
-        return predictSubwayUserFkEmb;
+
+    public PredictSubwayUserEmb getPredictSubwayUserFkEmb() {
+        return predictSubwayUserEmb;
     }
 
     public Integer getPredictSeat() {

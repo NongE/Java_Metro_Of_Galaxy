@@ -1,11 +1,10 @@
 package com.levelup.mog.service;
 
 import com.levelup.mog.config.SetProperty;
-import com.levelup.mog.controller.MogController;
 import com.levelup.mog.database.PredictSubwayUser;
 import com.levelup.mog.database.SubwayInfo;
-import com.levelup.mog.model.dto.Row;
-import com.levelup.mog.model.dto.SubwayUser;
+import com.levelup.mog.model.dto.users.Row;
+import com.levelup.mog.model.dto.users.SubwayUser;
 import com.levelup.mog.model.response.GetStationInfoResponse;
 import com.levelup.mog.repository.MogPredictSubwayUserRepository;
 import com.levelup.mog.repository.MogRepository;
@@ -43,7 +42,7 @@ public class MogService {
         List<String> stationNames = new ArrayList<>();
 
         mogRepository.findAll().forEach(stationIndex -> {
-                    stationNames.add(stationIndex.SubwayIdToDto().getStationName());
+                    stationNames.add(stationIndex.SubwayIdToDto().getSubwayIdEmbDto().getStationName());
                 }
         );
         TreeSet<String> deduplicationStationName = new TreeSet<>(stationNames);
@@ -56,7 +55,7 @@ public class MogService {
 
         List<String> stationLines = new ArrayList<>();
         mogRepository.findBySubwayIdEmbStationName(stationName).forEach(subwayId -> {
-            stationLines.add(subwayId.SubwayIdToDto().getLineNumber());
+            stationLines.add(subwayId.SubwayIdToDto().getSubwayIdEmbDto().getLineNumber());
         });
         return stationLines;
     }
@@ -105,10 +104,10 @@ public class MogService {
             GetStationInfoResponse getStationInfoResponse = new GetStationInfoResponse();
 
             // get subway info
-            SubwayInfo stationInfo = mogSubwayInfoRepository.findBySubwayIdFkEmbLineNumberAndSubwayIdFkEmbStationName(userStationLine, stationName);
+            SubwayInfo stationInfo = mogSubwayInfoRepository.findBySubwayInfoEmbLineNumberAndSubwayInfoEmbStationName(userStationLine, stationName);
 
             // get predict subway seat
-            PredictSubwayUser peopleInfo = mogPredictSubwayUserRepository.findByPredictSubwayUserFkEmbLineNumberAndPredictSubwayUserFkEmbStationNameAndPredictSubwayUserFkEmbDayAndPredictSubwayUserFkEmbTime(userStationLine, stationName, day, time);
+            PredictSubwayUser peopleInfo = mogPredictSubwayUserRepository.findByPredictSubwayUserEmbLineNumberAndPredictSubwayUserEmbStationNameAndPredictSubwayUserEmbDayAndPredictSubwayUserEmbTime(userStationLine, stationName, day, time);
 
             // set response
             getStationInfoResponse.setLine(userStationLine);

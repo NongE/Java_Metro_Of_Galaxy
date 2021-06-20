@@ -1,7 +1,8 @@
 package com.levelup.mog.database;
 
-import com.levelup.mog.database.emb.SubwayIdFkEmb;
-import com.levelup.mog.model.dto.SubwayIdDto;
+import com.levelup.mog.database.emb.SubwayInfoEmb;
+import com.levelup.mog.model.dto.SubwayInfoDto;
+import com.levelup.mog.model.dto.emb.SubwayInfoEmbDto;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -13,7 +14,7 @@ import javax.persistence.Table;
 public class SubwayInfo {
 
     @EmbeddedId
-    private SubwayIdFkEmb subwayIdFkEmb;
+    private SubwayInfoEmb subwayInfoEmb;
 
     @Column(name = "tel_number")
     private String telNumber;
@@ -21,8 +22,23 @@ public class SubwayInfo {
     @Column(name = "address")
     private String address;
 
-    public SubwayIdDto SubwayIdToDto(){
-        return new SubwayIdDto(subwayIdFkEmb.getLineNumber(), subwayIdFkEmb.getStationName());
+    public SubwayInfoDto SubwayInfoToDto(){
+
+        SubwayInfoDto infoDto = new SubwayInfoDto();
+        SubwayInfoEmbDto infoEmbDto = new SubwayInfoEmbDto();
+
+        infoEmbDto.setLineNumber(subwayInfoEmb.getLineNumber());
+        infoEmbDto.setStationName(subwayInfoEmb.getStationName());
+
+        infoDto.setSubwayInfoEmbDto(infoEmbDto);
+        infoDto.setTelNumber(getTelNumber());
+        infoDto.setAddress(getAddress());
+
+        return infoDto;
+    }
+
+    public SubwayInfoEmb getSubwayInfoEmb() {
+        return subwayInfoEmb;
     }
 
     public String getTelNumber() {

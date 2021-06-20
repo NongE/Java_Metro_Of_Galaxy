@@ -1,28 +1,17 @@
 package com.levelup.mog.model.dto;
 
+import com.levelup.mog.model.dto.emb.SubwayIdEmbDto;
+
 public class SubwayIdDto {
 
-    private String lineNumber;
-    private String stationName;
 
-    public SubwayIdDto(String lineNumber, String stationName) {
-        this.lineNumber = lineNumber;
-        this.stationName = stationName;
+    private SubwayIdEmbDto subwayIdEmbDto;
+
+    public SubwayIdEmbDto getSubwayIdEmbDto() {
+        return subwayIdEmbDto;
     }
 
-    public String getLineNumber() {
-        return lineNumber;
-    }
-
-    public void setLineNumber(String lineNumber) {
-        this.lineNumber = lineNumber;
-    }
-
-    public String getStationName() {
-        return stationName;
-    }
-
-    public void setStationName(String stationName) {
-        this.stationName = stationName;
+    public void setSubwayIdEmbDto(SubwayIdEmbDto subwayIdEmbDto) {
+        this.subwayIdEmbDto = subwayIdEmbDto;
     }
 }

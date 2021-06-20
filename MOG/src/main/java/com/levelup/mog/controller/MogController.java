@@ -1,7 +1,5 @@
 package com.levelup.mog.controller;
 
-import com.levelup.mog.config.SetProperty;
-import com.levelup.mog.model.dto.SubwayUser;
 import com.levelup.mog.model.request.GetStationInfoRequest;
 import com.levelup.mog.model.response.GetStationInfoResponse;
 import com.levelup.mog.model.response.ResponseMessage;
@@ -10,13 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 

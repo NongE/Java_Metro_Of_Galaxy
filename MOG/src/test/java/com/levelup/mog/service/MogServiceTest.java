@@ -24,7 +24,7 @@ class MogServiceTest {
         //given
         List<String> stationNames = new ArrayList<>();
         mogRepository.findAll().forEach(stationIndex -> {
-                    stationNames.add(stationIndex.SubwayIdToDto().getStationName());
+                    stationNames.add(stationIndex.SubwayIdToDto().getSubwayIdEmbDto().getStationName());
                 }
         );
 
@@ -51,13 +51,13 @@ class MogServiceTest {
 
         //when
         exampleLines1.forEach(subwayId -> {
-            getLines1.add(subwayId.SubwayIdToDto().getLineNumber());
+            getLines1.add(subwayId.SubwayIdToDto().getSubwayIdEmbDto().getLineNumber());
         });
         exampleLines2.forEach(subwayId -> {
-            getLines2.add(subwayId.SubwayIdToDto().getLineNumber());
+            getLines2.add(subwayId.SubwayIdToDto().getSubwayIdEmbDto().getLineNumber());
         });
         exampleLines3.forEach(subwayId -> {
-            getLines3.add(subwayId.SubwayIdToDto().getLineNumber());
+            getLines3.add(subwayId.SubwayIdToDto().getSubwayIdEmbDto().getLineNumber());
         });
 
         //then

@@ -2,6 +2,8 @@ package com.levelup.mog.database;
 
 import com.levelup.mog.database.emb.SubwayIdEmb;
 import com.levelup.mog.model.dto.SubwayIdDto;
+import com.levelup.mog.model.dto.SubwayInfoDto;
+import com.levelup.mog.model.dto.emb.SubwayIdEmbDto;
 
 import javax.persistence.*;
 
@@ -13,9 +15,20 @@ public class SubwayId {
 
     public SubwayIdDto SubwayIdToDto(){
 
-        SubwayIdDto convertDto = new SubwayIdDto(subwayIdEmb.getLineNumber(), subwayIdEmb.getStationName());
+        SubwayIdDto idDto = new SubwayIdDto();
+        SubwayIdEmbDto idEmbDto = new SubwayIdEmbDto();
 
-        return convertDto;
+        idEmbDto.setLineNumber(subwayIdEmb.getLineNumber());
+        idEmbDto.setStationName(subwayIdEmb.getStationName());
+
+        idDto.setSubwayIdEmbDto(idEmbDto);
+
+        return idDto;
+
+    }
+
+    public SubwayIdEmb getSubwayIdEmb() {
+        return subwayIdEmb;
     }
 }
 

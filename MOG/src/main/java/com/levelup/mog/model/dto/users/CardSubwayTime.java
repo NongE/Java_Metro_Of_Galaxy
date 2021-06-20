@@ -1,4 +1,4 @@
-package com.levelup.mog.model.dto;
+package com.levelup.mog.model.dto.users;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

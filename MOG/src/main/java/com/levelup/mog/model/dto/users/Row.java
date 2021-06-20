@@ -1,9 +1,7 @@
-package com.levelup.mog.model.dto;
+package com.levelup.mog.model.dto.users;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 // @JsonNaming(PropertyNamingStrategies.UpperCamelCaseStrategy.class)
 public class Row {

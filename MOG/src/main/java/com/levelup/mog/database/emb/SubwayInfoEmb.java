@@ -5,7 +5,7 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
-public class SubwayIdFkEmb implements Serializable {
+public class SubwayInfoEmb implements Serializable {
 
     @Column(name = "fk_line_number")
     private String lineNumber;
