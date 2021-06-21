@@ -6,9 +6,9 @@ import com.levelup.mog.database.SubwayInfo;
 import com.levelup.mog.model.dto.users.Row;
 import com.levelup.mog.model.dto.users.SubwayUser;
 import com.levelup.mog.model.response.GetStationInfoResponse;
-import com.levelup.mog.repository.MogPredictSubwayUserRepository;
-import com.levelup.mog.repository.MogRepository;
-import com.levelup.mog.repository.MogSubwayInfoRepository;
+import com.levelup.mog.repository.PredictSubwayUserRepository;
+import com.levelup.mog.repository.SubwayIdRepository;
+import com.levelup.mog.repository.SubwayInfoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
@@ -23,49 +23,56 @@ import java.util.TreeSet;
 
 public class MogService {
 
-    private final MogRepository mogRepository;
-    private final MogSubwayInfoRepository mogSubwayInfoRepository;
-    private final MogPredictSubwayUserRepository mogPredictSubwayUserRepository;
+    private final SubwayIdRepository subwayIdRepository;
+    private final SubwayInfoRepository subwayInfoRepository;
+    private final PredictSubwayUserRepository predictSubwayUserRepository;
     private final SetProperty setProperty;
 
     private final Logger logger = LoggerFactory.getLogger(MogService.class);
 
-    public MogService(MogRepository mogRepository, MogSubwayInfoRepository mogSubwayInfoRepository, MogPredictSubwayUserRepository mogPredictSubwayUserRepository, SetProperty setProperty) {
-        this.mogRepository = mogRepository;
-        this.mogSubwayInfoRepository = mogSubwayInfoRepository;
-        this.mogPredictSubwayUserRepository = mogPredictSubwayUserRepository;
+    public MogService(SubwayIdRepository subwayIdRepository, SubwayInfoRepository subwayInfoRepository, PredictSubwayUserRepository predictSubwayUserRepository, SetProperty setProperty) {
+        this.subwayIdRepository = subwayIdRepository;
+        this.subwayInfoRepository = subwayInfoRepository;
+        this.predictSubwayUserRepository = predictSubwayUserRepository;
         this.setProperty = setProperty;
     }
 
+    // get all station name
     public List<String> getStationNames() {
 
         List<String> stationNames = new ArrayList<>();
 
-        mogRepository.findAll().forEach(stationIndex -> {
+        subwayIdRepository.findAll().forEach(stationIndex -> {
                     stationNames.add(stationIndex.SubwayIdToDto().getSubwayIdEmbDto().getStationName());
                 }
         );
+
+        // remove deduplication
         TreeSet<String> deduplicationStationName = new TreeSet<>(stationNames);
 
         return new ArrayList<>(deduplicationStationName);
     }
 
 
+    // get all station lines
     public List<String> getAllStationLines(String stationName){
 
         List<String> stationLines = new ArrayList<>();
-        mogRepository.findBySubwayIdEmbStationName(stationName).forEach(subwayId -> {
+
+        subwayIdRepository.findBySubwayIdEmbStationName(stationName).forEach(subwayId -> {
             stationLines.add(subwayId.SubwayIdToDto().getSubwayIdEmbDto().getLineNumber());
         });
         return stationLines;
     }
 
+    // get station info
     public List<GetStationInfoResponse> getStationInfo(String stationName, String date, String day, int time) {
 
         List<GetStationInfoResponse> stationInfos = new ArrayList<>();
 
         // get all lines about user station
         List<String> userStationLines = getAllStationLines(stationName);
+        logger.info(userStationLines.toString());
 
         // set get data from open api
         String url = setProperty.getUrl();
@@ -97,17 +104,16 @@ public class MogService {
             ResponseEntity<SubwayUser> subwayUsers = restTemplate.exchange(build.toString(), HttpMethod.GET, entity, SubwayUser.class);
             Row userRow = subwayUsers.getBody().getCardSubwayTime().getRow().get(0);
             user = userRow.getFourRideNum() + userRow.getFourAlightNUM();
-            logger.info(user.toString());
 
 
             // prepare response structure
             GetStationInfoResponse getStationInfoResponse = new GetStationInfoResponse();
 
             // get subway info
-            SubwayInfo stationInfo = mogSubwayInfoRepository.findBySubwayInfoEmbLineNumberAndSubwayInfoEmbStationName(userStationLine, stationName);
+            SubwayInfo stationInfo = subwayInfoRepository.findBySubwayInfoEmbLineNumberAndSubwayInfoEmbStationName(userStationLine, stationName);
 
             // get predict subway seat
-            PredictSubwayUser peopleInfo = mogPredictSubwayUserRepository.findByPredictSubwayUserEmbLineNumberAndPredictSubwayUserEmbStationNameAndPredictSubwayUserEmbDayAndPredictSubwayUserEmbTime(userStationLine, stationName, day, time);
+            PredictSubwayUser peopleInfo = predictSubwayUserRepository.findByPredictSubwayUserEmbLineNumberAndPredictSubwayUserEmbStationNameAndPredictSubwayUserEmbDayAndPredictSubwayUserEmbTime(userStationLine, stationName, day, time);
 
             // set response
             getStationInfoResponse.setLine(userStationLine);

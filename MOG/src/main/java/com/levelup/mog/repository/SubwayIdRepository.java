@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 
-public interface MogRepository extends JpaRepository<SubwayId, SubwayIdEmb> {
+public interface SubwayIdRepository extends JpaRepository<SubwayId, SubwayIdEmb> {
     List<SubwayId> findBySubwayIdEmbStationName(String name);
 }
 
