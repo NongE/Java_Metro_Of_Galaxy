@@ -1,9 +1,7 @@
 package com.levelup.mog.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
-@Component
 @ConfigurationProperties("api")
 public class SetProperty {
 
