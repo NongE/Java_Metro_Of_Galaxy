@@ -17,9 +17,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TreeSet;
+import java.util.*;
 
 public class MogService {
 
@@ -29,6 +27,9 @@ public class MogService {
     private final SetProperty setProperty;
 
     private final Logger logger = LoggerFactory.getLogger(MogService.class);
+
+
+
 
     public MogService(SubwayIdRepository subwayIdRepository, SubwayInfoRepository subwayInfoRepository, PredictSubwayUserRepository predictSubwayUserRepository, SetProperty setProperty) {
         this.subwayIdRepository = subwayIdRepository;
@@ -103,8 +104,9 @@ public class MogService {
             // json to class
             ResponseEntity<SubwayUser> subwayUsers = restTemplate.exchange(build.toString(), HttpMethod.GET, entity, SubwayUser.class);
             Row userRow = subwayUsers.getBody().getCardSubwayTime().getRow().get(0);
-            user = userRow.getFourRideNum() + userRow.getFourAlightNUM();
 
+            // get subway user at time
+            user = getSubwayUsers(time, userRow);
 
             // prepare response structure
             GetStationInfoResponse getStationInfoResponse = new GetStationInfoResponse();
@@ -127,6 +129,39 @@ public class MogService {
 
 
         return stationInfos;
+    }
+
+    private Integer getSubwayUsers(Integer userTime, Row userRow) {
+        Map<Integer, Integer> subwayTime = new HashMap<Integer, Integer>(){
+            {
+                put(4, userRow.getFourAlightNUM() + userRow.getFourRideNum());
+                put(5, userRow.getFiveAlightNUM() + userRow.getFiveRideNum());
+                put(6, userRow.getSixAlightNUM() + userRow.getSixRideNum());
+                put(7, userRow.getSevenAlightNUM() + userRow.getSevenRideNum());
+                put(8, userRow.getEightAlightNUM() + userRow.getEightRideNum());
+                put(9, userRow.getNineAlightNUM() + userRow.getNineRideNum());
+                put(10, userRow.getTenAlightNUM() + userRow.getTenRideNum());
+                put(11, userRow.getElevenAlightNUM() + userRow.getElevenRideNum());
+                put(12, userRow.getTwelveAlightNUM() + userRow.getTwelveRideNum());
+                put(13, userRow.getThirteenAlightNUM() + userRow.getThirteenRideNum());
+                put(14, userRow.getFourteenAlightNUM() + userRow.getFourteenRideNum());
+                put(15, userRow.getFifteenAlightNUM() + userRow.getFifteenRideNum());
+                put(16, userRow.getSixteenAlightNUM() + userRow.getSixteenRideNum());
+                put(17, userRow.getSeventeenAlightNUM() + userRow.getSeventeenRideNum());
+                put(18, userRow.getEighteenAlightNUM() + userRow.getEighteenRideNum());
+                put(19, userRow.getNineteenAlightNUM() + userRow.getNineteenRideNum());
+                put(20, userRow.getTwentyAlightNUM() + userRow.getTwentyRideNum());
+                put(21, userRow.getTwentyOneAlightNUM() + userRow.getTwentyOneRideNum());
+                put(22, userRow.getTwentyTwoAlightNUM() + userRow.getTwentyTwoRideNum());
+                put(23, userRow.getTwentyThreeAlightNUM() + userRow.getTwentyThreeRideNum());
+                put(0, userRow.getMidnightAlightNUM() + userRow.getMidnightRideNum());
+                put(1, userRow.getOneAlightNUM() + userRow.getOneRideNum());
+                put(2, userRow.getTwoAlightNUM() + userRow.getTwoRideNum());
+                put(3, userRow.getThreeAlightNUM() + userRow.getThreeRideNum());
+            }
+
+        };
+        return subwayTime.get(userTime);
     }
 
 }
