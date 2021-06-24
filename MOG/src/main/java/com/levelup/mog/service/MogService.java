@@ -28,9 +28,6 @@ public class MogService {
 
     private final Logger logger = LoggerFactory.getLogger(MogService.class);
 
-
-
-
     public MogService(SubwayIdRepository subwayIdRepository, SubwayInfoRepository subwayInfoRepository, PredictSubwayUserRepository predictSubwayUserRepository, SetProperty setProperty) {
         this.subwayIdRepository = subwayIdRepository;
         this.subwayInfoRepository = subwayInfoRepository;
@@ -80,25 +77,23 @@ public class MogService {
         String key = setProperty.getKey();
         String TYPE = setProperty.getType();
         String SERVICE = setProperty.getService();
-        Integer START_INDEX = 1;
-        Integer END_INDEX = 5;
-        String USE_MON = date;
-        String SUB_STA_NM = stationName;
-        // String LINE_NUM = "1호선";
+        int START_INDEX = 1;
+        int END_INDEX = 5;
 
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", StandardCharsets.UTF_8));
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
+        // loop and get data
         userStationLines.forEach(userStationLine ->{
 
             // subway users
-            Integer user = 0;
+            int user = 0;
 
             // subway user info from open api
             UriComponents build = UriComponentsBuilder.fromHttpUrl(url)
-                    .path(key+"/"+TYPE+"/"+SERVICE+"/"+START_INDEX+"/"+END_INDEX+"/"+USE_MON+"/"+userStationLine+"/"+SUB_STA_NM)
+                    .path(key+"/"+TYPE+"/"+SERVICE+"/"+START_INDEX+"/"+END_INDEX+"/"+ date +"/"+userStationLine+"/"+ stationName)
                     .build();
 
             // json to class
@@ -127,11 +122,14 @@ public class MogService {
             stationInfos.add(getStationInfoResponse);
         });
 
-
         return stationInfos;
     }
 
+    // mapping int to data
+    // get users at time
     private Integer getSubwayUsers(Integer userTime, Row userRow) {
+
+        // mapping user time to data
         Map<Integer, Integer> subwayTime = new HashMap<Integer, Integer>(){
             {
                 put(4, userRow.getFourAlightNUM() + userRow.getFourRideNum());
@@ -161,6 +159,8 @@ public class MogService {
             }
 
         };
+
+        // return data at time
         return subwayTime.get(userTime);
     }
 
