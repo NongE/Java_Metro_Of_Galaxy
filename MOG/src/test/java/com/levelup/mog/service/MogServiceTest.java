@@ -13,11 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.TreeSet;
 
-import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 class MogServiceTest {
@@ -43,7 +41,7 @@ class MogServiceTest {
         TreeSet<String> deduplicationStationName = new TreeSet<>(stationNames);
 
         //then
-        assertThat(deduplicationStationName.size() == 10);
+        Assertions.assertThat(deduplicationStationName.size()).isEqualTo(10);
     }
 
     @Test
@@ -73,9 +71,9 @@ class MogServiceTest {
         });
 
         //then
-        assertThat(getLines1.containsAll(new ArrayList<String>(Arrays.asList("2호선", "7호선"))));
-        assertThat(getLines2.containsAll(new ArrayList<String>(Arrays.asList("7호선"))));
-        assertThat(getLines3.size() == 0);
+        Assertions.assertThat(getLines1).contains("2호선", "7호선");
+        Assertions.assertThat(getLines2).contains("7호선");
+        Assertions.assertThat(getLines3.size()).isEqualTo(0);
 
     }
 
