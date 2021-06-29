@@ -101,7 +101,7 @@ public class MogService {
             Row userRow = subwayUsers.getBody().getCardSubwayTime().getRow().get(0);
 
             // get subway user at time
-            user = getSubwayUsers(time, userRow);
+            user = getSubwayUsers(userStationLine, time, userRow);
 
             // prepare response structure
             GetStationInfoResponse getStationInfoResponse = new GetStationInfoResponse();
@@ -127,7 +127,7 @@ public class MogService {
 
     // mapping int to data
     // get users at time
-    private Integer getSubwayUsers(Integer userTime, Row userRow) {
+    private Integer getSubwayUsers(String line, Integer userTime, Row userRow) {
 
         // mapping user time to data
         Map<Integer, Integer> subwayTime = new HashMap<Integer, Integer>(){
@@ -160,8 +160,20 @@ public class MogService {
 
         };
 
+        Map<String, Integer> subwayCabinCount = new HashMap<>(){
+            {
+                put("1호선", 10);
+                put("2호선", 5);
+                put("3호선", 10);
+                put("4호선", 10);
+                put("5호선", 8);
+                put("6호선", 8);
+                put("7호선", 8);
+            }
+        };
+
         // return data at time
-        return subwayTime.get(userTime);
+        return subwayTime.get(userTime)/subwayCabinCount.get(line)/2;
     }
 
 }
