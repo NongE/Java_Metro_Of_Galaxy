@@ -6,7 +6,7 @@ public class PredictSubwayUserDto {
 
     private PredictSubwayUserEmbDto predictSubwayUserEmbDto;
 
-    private Integer predictSeat;
+    private Boolean predictSeat;
 
     public PredictSubwayUserEmbDto getPredictSubwayUserFkEmbDto() {
         return predictSubwayUserEmbDto;
@@ -16,11 +16,11 @@ public class PredictSubwayUserDto {
         this.predictSubwayUserEmbDto = predictSubwayUserEmbDto;
     }
 
-    public Integer getPredictSeat() {
+    public Boolean getPredictSeat() {
         return predictSeat;
     }
 
-    public void setPredictSeat(Integer predictSeat) {
+    public void setPredictSeat(Boolean predictSeat) {
         this.predictSeat = predictSeat;
     }
 }

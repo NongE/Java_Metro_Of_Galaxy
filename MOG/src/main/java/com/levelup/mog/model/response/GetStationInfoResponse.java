@@ -12,7 +12,7 @@ public class GetStationInfoResponse {
     private String telNumber = null;
     private String address = null;
     private Integer people = null;
-    private Integer seatPredict = null;
+    private Boolean seatPredict = null;
 
     public String getLine() {
         return line;
@@ -46,11 +46,11 @@ public class GetStationInfoResponse {
         this.people = people;
     }
 
-    public Integer getSeatPredict() {
+    public Boolean getSeatPredict() {
         return seatPredict;
     }
 
-    public void setSeatPredict(Integer seatPredict) {
+    public void setSeatPredict(Boolean seatPredict) {
         this.seatPredict = seatPredict;
     }
 

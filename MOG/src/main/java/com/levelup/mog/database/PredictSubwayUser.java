@@ -17,7 +17,7 @@ public class PredictSubwayUser {
     private PredictSubwayUserEmb predictSubwayUserEmb;
 
     @Column(name = "predict_seat")
-    private Integer predictSeat;
+    private Boolean predictSeat;
 
 
     public PredictSubwayUserDto PredictSubwayUserToDto(){
@@ -42,7 +42,7 @@ public class PredictSubwayUser {
         return predictSubwayUserEmb;
     }
 
-    public Integer getPredictSeat() {
+    public Boolean getPredictSeat() {
         return predictSeat;
     }
 }
