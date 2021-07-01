@@ -160,6 +160,7 @@ public class MogService {
 
         };
 
+        // 호선 별 열차 수(전동차 수)
         Map<String, Integer> subwayCabinCount = new HashMap<>(){
             {
                 put("1호선", 10);
@@ -173,6 +174,7 @@ public class MogService {
         };
 
         // return data at time
+        // 승하차 인원 / 호선 별 열차 수 / 진행 방향에 따른 2
         return subwayTime.get(userTime)/subwayCabinCount.get(line)/2;
     }
 

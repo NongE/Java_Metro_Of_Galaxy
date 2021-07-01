@@ -4,6 +4,7 @@ import com.levelup.mog.model.request.GetStationInfoRequest;
 import com.levelup.mog.model.response.GetStationInfoResponse;
 import com.levelup.mog.model.response.ResponseMessage;
 import com.levelup.mog.service.MogService;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
@@ -28,6 +29,7 @@ public class MogController {
 
     // Get all station names
     @GetMapping(value = "/get_stations")
+    @ApiOperation(value = "역사 명을 반환하는 API", notes = "DB 내에 저장되어 있는 역사 명을 모두 반환합니다.")
     public ResponseEntity<ResponseMessage> get_stations(
             HttpServletRequest request
     ) throws UnsupportedEncodingException {
@@ -48,6 +50,7 @@ public class MogController {
 
 
     @PostMapping(value = "/get_station_info")
+    @ApiOperation(value = "특정 역사에 대한 정보를 반환하는 API", notes = "특정 역사에 대해 기본적인 정보(전화번호, 주소 등)와 앉을 수 있을지에 대한 예측치를 반환합니다.")
     public ResponseEntity<ResponseMessage> get_station_info(
             HttpServletRequest request,
             @RequestBody GetStationInfoRequest getStationInfoRequest

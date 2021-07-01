@@ -2,6 +2,7 @@ package com.levelup.mog.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+// properties에 저장한 변수, 값을 가져오기 위함
 @ConfigurationProperties("api")
 public class SetProperty {
 
