@@ -37,7 +37,6 @@ public class MogController {
         logger.info("API Call: get_stations");
         List<String> getStations = mogService.getStationNames();
 
-        // Put stations list to ResponseMessage
         ResponseMessage result = new ResponseMessage();
         result.setPath(request.getRequestURI());
         result.setStatus(HttpStatus.OK.toString());
@@ -64,9 +63,17 @@ public class MogController {
         // Put stations list to ResponseMessage
         ResponseMessage result = new ResponseMessage();
         result.setPath(request.getRequestURI());
-        result.setStatus(HttpStatus.OK.toString());
-        result.setResult("success");
-        result.setData(lines);
+
+        // if not found station
+        if (lines.size() == 0){
+            result.setStatus(HttpStatus.OK.toString());
+            result.setResult("fail");
+            result.setData("not found station name: "+getStationInfoRequest.getStationName());
+        }else{
+            result.setStatus(HttpStatus.OK.toString());
+            result.setResult("success");
+            result.setData(lines);
+        }
 
         // Return ResponseEntity
         return new ResponseEntity<>(result, HttpStatus.OK);
