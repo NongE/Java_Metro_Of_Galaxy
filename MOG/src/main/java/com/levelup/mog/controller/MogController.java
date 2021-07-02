@@ -11,6 +11,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
@@ -52,6 +53,7 @@ public class MogController {
     @ApiOperation(value = "특정 역사에 대한 정보를 반환하는 API", notes = "특정 역사에 대해 기본적인 정보(전화번호, 주소 등)와 앉을 수 있을지에 대한 예측치를 반환합니다.")
     public ResponseEntity<ResponseMessage> get_station_info(
             HttpServletRequest request,
+            @Valid
             @RequestBody GetStationInfoRequest getStationInfoRequest
     ) {
         // Call get stations

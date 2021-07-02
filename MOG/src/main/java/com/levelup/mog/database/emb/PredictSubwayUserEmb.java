@@ -1,5 +1,7 @@
 package com.levelup.mog.database.emb;
 
+import com.levelup.mog.annotation.DateCheck;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
