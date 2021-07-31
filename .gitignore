@@ -40,4 +40,4 @@ out/
 ### custom
 *.properties
 */logs/*
-*.sql
+.DS_Store
