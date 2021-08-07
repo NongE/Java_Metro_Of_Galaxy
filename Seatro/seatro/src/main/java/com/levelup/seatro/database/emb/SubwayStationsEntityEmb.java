@@ -2,9 +2,10 @@ package com.levelup.seatro.database.emb;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 @Embeddable
-public class SubwayStationsEntityEmb {
+public class SubwayStationsEntityEmb implements Serializable {
 
     @Column(name =  "line_number")
     private String lineNumber;

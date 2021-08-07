@@ -10,4 +10,7 @@ public class SubwayStations {
     @EmbeddedId
     private SubwayStationsEntityEmb subwayStationsEntityEmb;
 
+    public SubwayStationsEntityEmb getSubwayStationsEntityEmb() {
+        return subwayStationsEntityEmb;
+    }
 }
