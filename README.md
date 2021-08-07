@@ -11,7 +11,7 @@
 * 특정 역에 대한 정보(주소, 전화번호 등)를 반환
 
 ## 구조
-<img src = "./Images/MOG.jpg" width = "80%">
+<img src = "./Images/MOG_Design/MOG.jpg" width = "80%">
 
 ### MogService
 * 조회
