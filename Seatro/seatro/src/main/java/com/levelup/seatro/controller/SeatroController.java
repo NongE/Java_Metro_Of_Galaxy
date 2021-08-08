@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -31,7 +32,7 @@ public class SeatroController {
 
         ResponseMessage responseMessage = new ResponseMessage();
 
-        Map<String, String> subwayStations = seatroService.findAllSubwayStations();
+        List<Map<String, String>> subwayStations = seatroService.findAllSubwayStations();
 
         responseMessage.setPath(request.getRequestURI());
         responseMessage.setStatus(HttpStatus.OK.toString());

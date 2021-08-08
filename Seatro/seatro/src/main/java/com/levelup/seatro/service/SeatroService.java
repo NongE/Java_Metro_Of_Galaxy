@@ -4,10 +4,7 @@ import com.levelup.seatro.database.emb.SubwayStations;
 import com.levelup.seatro.database.emb.SubwayStationsEntityEmb;
 import com.levelup.seatro.repository.SubwayStationsRepository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class SeatroService {
 
@@ -17,17 +14,29 @@ public class SeatroService {
         this.subwayStationsRepository = subwayStationsRepository;
     }
 
-    public Map<String, String> findAllSubwayStations() {
+    public List<Map<String, String>> findAllSubwayStations() {
 
-        Map<String, String> result = new TreeMap<>();
+        List<Map<String, String>> result = new ArrayList<>();
 
         List<SubwayStations> stations = subwayStationsRepository.findAll();
 
         stations.forEach(index -> {
             SubwayStationsEntityEmb subwayStationsEntityEmb = index.getSubwayStationsEntityEmb();
-            result.put(subwayStationsEntityEmb.getLineNumber(), subwayStationsEntityEmb.getStationName());
+            result.add(new HashMap() {
+                {
+                    put("line_number",subwayStationsEntityEmb.getLineNumber());
+                    put("station_name", subwayStationsEntityEmb.getStationName());
+                }
+            });
 
         });
+
+//        Collections.sort(result, new Comparator<Map<String, String>> () {
+//            @Override
+//            public int compare(Map<String, String> o1, Map<String, String> o2) {
+//                return o1.get("line_number").compareTo(o2.get("line_number"));
+//            }
+//        });
 
         return result;
     }
