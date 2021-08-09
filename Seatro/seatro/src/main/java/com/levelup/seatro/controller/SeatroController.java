@@ -20,7 +20,6 @@ public class SeatroController {
     private final SeatroService seatroService;
 
     public SeatroController(SeatroService seatroService) {
-        System.out.println("Active!");
         this.seatroService = seatroService;
     }
 
@@ -30,12 +29,17 @@ public class SeatroController {
             HttpServletRequest request
     ){
 
+        // 응답에 필요한 Message 선언
         ResponseMessage responseMessage = new ResponseMessage();
 
+        // Map을 가지고 있는 리스트의 형식으로 저장
         List<Map<String, String>> subwayStations = seatroService.findAllSubwayStations();
 
+        // 요청한 경로
         responseMessage.setPath(request.getRequestURI());
+        // 결과
         responseMessage.setStatus(HttpStatus.OK.toString());
+        // 데이터 (리스트 형태)
         responseMessage.setData(subwayStations);
 
 

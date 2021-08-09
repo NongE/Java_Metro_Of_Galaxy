@@ -18,8 +18,10 @@ public class SeatroService {
 
         List<Map<String, String>> result = new ArrayList<>();
 
+        // 테이블에 있는 모든 데이터 조회
         List<SubwayStations> stations = subwayStationsRepository.findAll();
 
+        // 리스트를 순회하며 호선을 키, 역사 명을 값으로 하는 Map 형식으로 저장
         stations.forEach(index -> {
             SubwayStationsEntityEmb subwayStationsEntityEmb = index.getSubwayStationsEntityEmb();
             result.add(new HashMap() {
