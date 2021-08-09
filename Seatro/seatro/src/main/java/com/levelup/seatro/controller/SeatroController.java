@@ -42,8 +42,31 @@ public class SeatroController {
         // 데이터 (리스트 형태)
         responseMessage.setData(subwayStations);
 
+        System.out.println(getClientIp(request));
 
         return new ResponseEntity<>(responseMessage, HttpStatus.OK);
+    }
+
+    private String getClientIp(HttpServletRequest request) {
+
+        String ip = request.getHeader("X-Forwrded-For");
+
+        if (ip == null) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null) {
+            ip = request.getHeader("HTTP_CLIENT_IP");
+        }
+        if (ip == null) {
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+        }
+        if (ip == null) {
+            ip = request.getRemoteAddr();
+        }
+        return ip;
     }
 
 

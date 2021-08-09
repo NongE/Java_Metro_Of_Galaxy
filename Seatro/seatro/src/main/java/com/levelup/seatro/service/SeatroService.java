@@ -4,6 +4,7 @@ import com.levelup.seatro.database.emb.SubwayStations;
 import com.levelup.seatro.database.emb.SubwayStationsEntityEmb;
 import com.levelup.seatro.repository.SubwayStationsRepository;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 public class SeatroService {
@@ -26,7 +27,7 @@ public class SeatroService {
             SubwayStationsEntityEmb subwayStationsEntityEmb = index.getSubwayStationsEntityEmb();
             result.add(new HashMap() {
                 {
-                    put("line_number",subwayStationsEntityEmb.getLineNumber());
+                    put("line_number", subwayStationsEntityEmb.getLineNumber());
                     put("station_name", subwayStationsEntityEmb.getStationName());
                 }
             });
@@ -42,5 +43,7 @@ public class SeatroService {
 
         return result;
     }
+
+
 
 }
