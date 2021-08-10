@@ -1,6 +1,8 @@
 DROP TABLE IF EXISTS subway_stations;
 DROP TABLE IF EXISTS station_detail_users;
 DROP TABLE IF EXISTS station_users;
+DROP TABLE IF EXISTS surround_stations;
+
 
 CREATE TABLE subway_stations(
  line_number varchar(10),
@@ -82,6 +84,20 @@ CREATE TABLE station_users(
  time_23 int,
  PRIMARY KEY(line_number, station_name)
 );
+
+
+CREATE TABLE surround_stations(
+ line_number varchar(10),
+ station_name varchar(15),
+ right_station varchar(15),
+ left_station varchar(15),
+ PRIMARY KEY(line_number, station_name, right_station, left_station)
+);
+
+INSERT INTO surround_stations VALUES ("7호선", "건대입구", "어린이대공원", "뚝섬 유원지");
+INSERT INTO surround_stations VALUES ("2호선", "건대입구", "성수", "구의");
+INSERT INTO surround_stations VALUES ("5호선", "군자", "장한평", "아차산");
+
 
 
 select * from station_detail_users;
