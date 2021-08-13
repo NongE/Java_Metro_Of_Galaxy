@@ -1,4 +1,4 @@
-# Java_Metro_Of_Galaxy
+# Java_Seatro(Metro_Of_Galaxy)
 
 
 ## 개발환경
@@ -6,11 +6,18 @@
 * Intellij Community
 
 ## 기능
-* OpenAPI를 활용하여 특정 역, 특정 시간의 지난 이용객 수 반환
-* 데이터베이스 내에 저장되어있는 모든 역사 명 반환
-* 특정 역에 대한 정보(주소, 전화번호 등)를 반환
+* 특정 시간대에 특정 역에 대해 이용객이 앉아서 지하철을 이용할 수 있을지 예측치를 제공하는 서비스
+* Front는 React, Back은 Spring Boot로 구성 예정
+* 예측 데이터의 경우 Python을 활용하여 회귀 모델을 사용할 예정
 
-## 구조
+
+
+
+이하 내용은 새롭게 기획되는 내용을 토대로 수정 예정임
+
+---
+
+## (구) Metro Of Galaxy 구조
 <img src = "./Images/MOG_Design/MOG.jpg" width = "80%">
 
 ### MogService
