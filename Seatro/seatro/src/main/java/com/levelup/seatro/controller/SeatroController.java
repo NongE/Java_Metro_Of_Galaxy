@@ -33,37 +33,21 @@ public class SeatroController {
 
         // 응답에 필요한 Message 선언
         ResponseMessage responseMessage = new ResponseMessage();
+
+        // 요청한 경로
+        responseMessage.setPath(request.getRequestURI());
+
         List<Map<String, String>> subwayStations = new ArrayList<>();
 
-        try {
-            // Map을 가지고 있는 리스트의 형식으로 저장
-            subwayStations = seatroService.findAllSubwayStations();
+        subwayStations = seatroService.findAllSubwayStations();
 
-            // 결과
-            responseMessage.setStatus(HttpStatus.OK.toString());
-
-            Exception e = new Exception("고이ㅡ");
-            throw e;
-
-        } catch (Exception e) {
-
-            subwayStations.add(new HashMap() {
-                {
-                    put("line_number", "1호선");
-                    put("station_name", "시청역");
-                }
-            });
-
-            // 결과
+        if(subwayStations.size() == 1){
             responseMessage.setStatus(HttpStatus.FOUND.toString());
-
-        } finally {
-            // 요청한 경로
-            responseMessage.setPath(request.getRequestURI());
-            // 데이터 (리스트 형태)
-            responseMessage.setData(subwayStations);
+        }else{
+            responseMessage.setStatus(HttpStatus.OK.toString());
         }
 
+        responseMessage.setData(subwayStations);
 
         System.out.println(getClientIp(request));
 

@@ -19,20 +19,35 @@ public class SeatroService {
 
         List<Map<String, String>> result = new ArrayList<>();
 
-        // 테이블에 있는 모든 데이터 조회
-        List<SubwayStations> stations = subwayStationsRepository.findAll();
+        List<SubwayStations> stations = new ArrayList<>();
 
-        // 리스트를 순회하며 호선을 키, 역사 명을 값으로 하는 Map 형식으로 저장
-        stations.forEach(index -> {
-            SubwayStationsEntityEmb subwayStationsEntityEmb = index.getSubwayStationsEntityEmb();
+        // 테이블에 있는 모든 데이터 조회
+        try {
+            stations = subwayStationsRepository.findAll();
+
+            stations.forEach(index -> {
+                SubwayStationsEntityEmb subwayStationsEntityEmb = index.getSubwayStationsEntityEmb();
+                result.add(new HashMap() {
+                    {
+                        put("line_number", subwayStationsEntityEmb.getLineNumber());
+                        put("station_name", subwayStationsEntityEmb.getStationName());
+                    }
+                });
+
+            });
+        } catch (Exception e) {
+            result.clear();
             result.add(new HashMap() {
                 {
-                    put("line_number", subwayStationsEntityEmb.getLineNumber());
-                    put("station_name", subwayStationsEntityEmb.getStationName());
+                    put("line_number", "1호선");
+                    put("station_name", "시청역");
                 }
             });
+        }
 
-        });
+
+        // 리스트를 순회하며 호선을 키, 역사 명을 값으로 하는 Map 형식으로 저장
+
 
 //        Collections.sort(result, new Comparator<Map<String, String>> () {
 //            @Override
@@ -43,7 +58,6 @@ public class SeatroService {
 
         return result;
     }
-
 
 
 }
