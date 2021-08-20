@@ -1,18 +1,25 @@
 package com.levelup.seatro.service;
 
-import com.levelup.seatro.database.emb.SubwayStations;
-import com.levelup.seatro.database.emb.SubwayStationsEntityEmb;
+import com.levelup.seatro.database.entity.StationUsers;
+import com.levelup.seatro.database.entity.SubwayStations;
+import com.levelup.seatro.database.emb.SubwayStationsEmb;
+import com.levelup.seatro.repository.StationUsersRepository;
 import com.levelup.seatro.repository.SubwayStationsRepository;
+import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 
+@Service
 public class SeatroService {
 
     private final SubwayStationsRepository subwayStationsRepository;
+    private final StationUsersRepository stationUsersRepository;
 
-    public SeatroService(SubwayStationsRepository subwayStationsRepository) {
+    public SeatroService(SubwayStationsRepository subwayStationsRepository, StationUsersRepository stationUsersRepository) {
         this.subwayStationsRepository = subwayStationsRepository;
+        this.stationUsersRepository = stationUsersRepository;
     }
 
     public List<Map<String, String>> findAllSubwayStations() {
@@ -26,11 +33,11 @@ public class SeatroService {
             stations = subwayStationsRepository.findAll();
 
             stations.forEach(index -> {
-                SubwayStationsEntityEmb subwayStationsEntityEmb = index.getSubwayStationsEntityEmb();
+                SubwayStationsEmb subwayStationsEmb = index.getSubwayStationsEntityEmb();
                 result.add(new HashMap() {
                     {
-                        put("line_number", subwayStationsEntityEmb.getLineNumber());
-                        put("station_name", subwayStationsEntityEmb.getStationName());
+                        put("line_number", subwayStationsEmb.getLineNumber());
+                        put("station_name", subwayStationsEmb.getStationName());
                     }
                 });
 
@@ -46,6 +53,8 @@ public class SeatroService {
         }
 
 
+
+
         // 리스트를 순회하며 호선을 키, 역사 명을 값으로 하는 Map 형식으로 저장
 
 
@@ -57,6 +66,13 @@ public class SeatroService {
 //        });
 
         return result;
+    }
+
+    public StationUsers findPopularStation(){
+        LocalTime currentTime = LocalTime.now();
+        System.out.println(currentTime.getHour());
+        return stationUsersRepository.findByStationUsersEmbCheckInTimeOrderByPeopleDesc(currentTime.getHour()).get(0);
+
     }
 
 

@@ -1,6 +1,7 @@
 package com.levelup.seatro.controller;
 
 
+import com.levelup.seatro.database.entity.StationUsers;
 import com.levelup.seatro.model.ResponseMessage;
 import com.levelup.seatro.service.SeatroService;
 import org.springframework.http.HttpStatus;
@@ -47,7 +48,24 @@ public class SeatroController {
             responseMessage.setStatus(HttpStatus.OK.toString());
         }
 
-        responseMessage.setData(subwayStations);
+
+
+        Map<String, Object> data = new HashMap<>();
+
+        data.put("stations list", subwayStations);
+
+        StationUsers tmp = seatroService.findPopularStation();
+
+        Map<String, Object> tmpData = new HashMap<>();
+        tmpData.put("time", tmp.getStationUsersEmb().getCheckInTime());
+        tmpData.put("line_number", tmp.getStationUsersEmb().getLineNumber());
+        tmpData.put("station_name", tmp.getStationUsersEmb().getStationName());
+        tmpData.put("people", tmp.getPeople());
+
+        data.put("popular station", tmpData);
+
+        responseMessage.setData(data);
+        // responseMessage.setData(subwayStations);
 
         System.out.println(getClientIp(request));
 
