@@ -5,7 +5,8 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
-public class StationUsersEmb implements Serializable {
+public class SurroundStationsEmb implements Serializable {
+
     @Column(name =  "line_number")
     private String lineNumber;
 
@@ -13,10 +14,7 @@ public class StationUsersEmb implements Serializable {
     private String stationName;
 
     @Column(name =  "direction")
-    private String direction;
-
-    @Column(name =  "check_in_time")
-    private Integer checkInTime;
+    private Integer direction;
 
     public String getLineNumber() {
         return lineNumber;
@@ -26,21 +24,17 @@ public class StationUsersEmb implements Serializable {
         return stationName;
     }
 
-    public String getDirection() {
+    public Integer getDirection() {
         return direction;
-    }
-
-    public Integer getCheckInTime() {
-        return checkInTime;
     }
 
     @Override
     public String toString() {
-        return "StationUsersEmb{" +
+        return "SurroundStationsEmb{" +
                 "lineNumber='" + lineNumber + '\'' +
                 ", stationName='" + stationName + '\'' +
-                ", direction='" + direction + '\'' +
-                ", checkInTime=" + checkInTime +
+                ", direction=" + direction +
                 '}';
     }
 }
+

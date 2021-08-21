@@ -3,13 +3,13 @@ package com.levelup.seatro.controller;
 
 import com.levelup.seatro.database.entity.StationUsers;
 import com.levelup.seatro.model.ResponseMessage;
+import com.levelup.seatro.model.StationInfoRequest;
 import com.levelup.seatro.service.SeatroService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "/seatro_api")
+@RequestMapping(value = {"/seatro_api"})
 public class SeatroController {
 
     private final SeatroService seatroService;
@@ -27,7 +27,7 @@ public class SeatroController {
     }
 
 
-    @GetMapping(value = "/get_stations")
+    @GetMapping(value = {"/get_stations"})
     public ResponseEntity<ResponseMessage> get_stations(
             HttpServletRequest request
     ) {
@@ -38,61 +38,69 @@ public class SeatroController {
         // 요청한 경로
         responseMessage.setPath(request.getRequestURI());
 
-        List<Map<String, String>> subwayStations = new ArrayList<>();
-
-        subwayStations = seatroService.findAllSubwayStations();
-
-        if(subwayStations.size() == 1){
-            responseMessage.setStatus(HttpStatus.FOUND.toString());
-        }else{
-            responseMessage.setStatus(HttpStatus.OK.toString());
-        }
-
-
-
+        // 반환할 데이터 저장
         Map<String, Object> data = new HashMap<>();
 
-        data.put("stations list", subwayStations);
+        // 역사 목록
+        List<Map<String, String>> subwayStations = seatroService.findAllSubwayStations();
+        data.put("station list", subwayStations);
 
-        StationUsers tmp = seatroService.findPopularStation();
-
-        Map<String, Object> tmpData = new HashMap<>();
-        tmpData.put("time", tmp.getStationUsersEmb().getCheckInTime());
-        tmpData.put("line_number", tmp.getStationUsersEmb().getLineNumber());
-        tmpData.put("station_name", tmp.getStationUsersEmb().getStationName());
-        tmpData.put("people", tmp.getPeople());
-
-        data.put("popular station", tmpData);
+        // 이용객이 많은 역사
+        Map<String, Object> popularStation = getPopularStation();
+        data.put("popular station", popularStation);
 
         responseMessage.setData(data);
-        // responseMessage.setData(subwayStations);
 
-        System.out.println(getClientIp(request));
+        // 상태 저장
+        if (subwayStations.size() == 1) {
+            responseMessage.setStatus(HttpStatus.FOUND.toString());
+        } else {
+            responseMessage.setStatus(HttpStatus.OK.toString());
+        }
 
         return new ResponseEntity<>(responseMessage, HttpStatus.OK);
     }
 
-    private String getClientIp(HttpServletRequest request) {
+    // 현 시간대에 이용객이 가장 많은 역사, 호선 정보 구하기
+    private Map<String, Object> getPopularStation() {
 
-        String ip = request.getHeader("X-Forwrded-For");
+        StationUsers _popularStation = seatroService.findPopularStation();
 
-        if (ip == null) {
-            ip = request.getHeader("Proxy-Client-IP");
-        }
-        if (ip == null) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (ip == null) {
-            ip = request.getHeader("HTTP_CLIENT_IP");
-        }
-        if (ip == null) {
-            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
-        }
-        if (ip == null) {
-            ip = request.getRemoteAddr();
-        }
-        return ip;
+        Map<String, Object> stationInfo = new HashMap<>() {{
+                put("time", _popularStation.getStationUsersEmb().getCheckInTime());
+                put("line_number", _popularStation.getStationUsersEmb().getLineNumber());
+                put("station_name", _popularStation.getStationUsersEmb().getStationName());
+                put("people", _popularStation.getPeople());
+            }
+        };
+
+        return stationInfo;
+
     }
+
+    @PostMapping(value = {"/get_station_info"})
+    public ResponseEntity<ResponseMessage> getStationInfo(
+            @RequestBody
+            StationInfoRequest stationInfoRequest,
+            HttpServletRequest request
+    ){
+        ResponseMessage responseMessage = new ResponseMessage();
+
+        // 요청한 경로
+        responseMessage.setPath(request.getRequestURI());
+
+        // 반환할 데이터 저장
+
+        List<Map<String, String>> data = seatroService.getStationInfo(stationInfoRequest.getLineNumber(), stationInfoRequest.getStationName(), stationInfoRequest.getTime());
+
+        responseMessage.setData(data);
+
+        responseMessage.setStatus(HttpStatus.OK.toString());
+
+
+        return new ResponseEntity<>(responseMessage, HttpStatus.OK);
+    }
+
 
 
 }
