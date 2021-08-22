@@ -13,7 +13,7 @@ public class StationUsersEmb implements Serializable {
     private String stationName;
 
     @Column(name =  "direction")
-    private String direction;
+    private Integer direction;
 
     @Column(name =  "check_in_time")
     private Integer checkInTime;
@@ -26,7 +26,7 @@ public class StationUsersEmb implements Serializable {
         return stationName;
     }
 
-    public String getDirection() {
+    public Integer getDirection() {
         return direction;
     }
 

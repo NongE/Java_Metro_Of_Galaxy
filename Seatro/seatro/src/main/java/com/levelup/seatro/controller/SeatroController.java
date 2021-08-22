@@ -42,8 +42,8 @@ public class SeatroController {
         Map<String, Object> data = new HashMap<>();
 
         // 역사 목록
-        List<Map<String, String>> subwayStations = seatroService.findAllSubwayStations();
-        data.put("station list", subwayStations);
+        Map<String, Object> subwayStations = seatroService.findAllSubwayStations();
+        data.put("station list", subwayStations.get("data"));
 
         // 이용객이 많은 역사
         Map<String, Object> popularStation = getPopularStation();
@@ -51,12 +51,7 @@ public class SeatroController {
 
         responseMessage.setData(data);
 
-        // 상태 저장
-        if (subwayStations.size() == 1) {
-            responseMessage.setStatus(HttpStatus.FOUND.toString());
-        } else {
-            responseMessage.setStatus(HttpStatus.OK.toString());
-        }
+        responseMessage.setStatus(subwayStations.get("status").toString());
 
         return new ResponseEntity<>(responseMessage, HttpStatus.OK);
     }
@@ -90,7 +85,6 @@ public class SeatroController {
         responseMessage.setPath(request.getRequestURI());
 
         // 반환할 데이터 저장
-
         List<Map<String, String>> data = seatroService.getStationInfo(stationInfoRequest.getLineNumber(), stationInfoRequest.getStationName(), stationInfoRequest.getTime());
 
         responseMessage.setData(data);
