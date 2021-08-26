@@ -31,7 +31,7 @@ public class SeatroService {
         this.surroundStationsRepository = surroundStationsRepository;
     }
 
-    public Map<String, Object> findAllSubwayStations() {
+    public Map<String, Object> getAllSubwayStations() {
 
         Map<String, Object> result = new HashMap<>();
 

@@ -31,7 +31,6 @@ public class SeatroController {
     public ResponseEntity<ResponseMessage> get_stations(
             HttpServletRequest request
     ) {
-
         // 응답에 필요한 Message 선언
         ResponseMessage responseMessage = new ResponseMessage();
 
@@ -42,12 +41,12 @@ public class SeatroController {
         Map<String, Object> data = new HashMap<>();
 
         // 역사 목록
-        Map<String, Object> subwayStations = seatroService.findAllSubwayStations();
-        data.put("station list", subwayStations.get("data"));
+        Map<String, Object> subwayStations = seatroService.getAllSubwayStations();
+        data.put("station_list", subwayStations.get("data"));
 
         // 이용객이 많은 역사
         Map<String, Object> popularStation = getPopularStation();
-        data.put("popular station", popularStation);
+        data.put("popular_station", popularStation);
 
         responseMessage.setData(data);
 
