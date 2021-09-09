@@ -86,35 +86,43 @@ public class SeatroService {
     }
 
 
-    public List<Map<String, String>> getStationInfo(String lineNumber, String stationName, int checkInTime) {
+    public List<Map<String, Object>> getStationInfo(String lineNumber, String stationName, int checkInTime) {
 
-        List<Map<String, String>> result = new ArrayList<>();
+        List<Map<String, Object>> result = new ArrayList<>();
 
         List<StationDetailUsers> stationUsers = stationDetailUsersRepository.findByStationUsersEmbLineNumberAndStationUsersEmbStationNameAndStationUsersEmbCheckInTime(lineNumber, stationName, checkInTime);
 
         if (stationUsers.size() != 0) {
 
             stationUsers.forEach(index -> {
-                Map<String, String> stationInfo = new TreeMap<>();
 
+                // 정렬을 위해 TreeMap
+                Map<String, Object> stationInfo = new TreeMap<>();
+
+                // 역사의 진행 방향을 가져옵니다.
                 DirectionMapping getSurroundStation = surroundStationsRepository.findBySurroundStationsEmbLineNumberAndSurroundStationsEmbStationNameAndSurroundStationsEmbDirection(index.getStationUsersEmb().getLineNumber(), index.getStationUsersEmb().getStationName(), index.getStationUsersEmb().getDirection());
 
                 stationInfo.put("direction", getSurroundStation.getSurroundStation());
-                stationInfo.put("cabin_1", index.getCabin1().toString());
-                stationInfo.put("cabin_2", index.getCabin2().toString());
-                stationInfo.put("cabin_3", index.getCabin3().toString());
-                stationInfo.put("cabin_4", index.getCabin4().toString());
-                stationInfo.put("cabin_5", index.getCabin5().toString());
-                stationInfo.put("cabin_6", index.getCabin6().toString());
-                stationInfo.put("cabin_7", index.getCabin7().toString());
-                stationInfo.put("cabin_8", index.getCabin8().toString());
+
+                List<String> cabin = new ArrayList<>();
+                cabin.add(index.getCabin1().toString());
+                cabin.add(index.getCabin2().toString());
+                cabin.add(index.getCabin3().toString());
+                cabin.add(index.getCabin4().toString());
+                cabin.add(index.getCabin5().toString());
+                cabin.add(index.getCabin6().toString());
+                cabin.add(index.getCabin7().toString());
+                cabin.add(index.getCabin8().toString());
+
+                stationInfo.put("cabin", cabin);
 
                 result.add(stationInfo);
             });
 
-        } else {
+            // 오류 발생 시 아래로 반환
+        } else{
 
-            Map<String, String> failResult = new HashMap<>() {{
+            Map<String, Object> failResult = new HashMap<>() {{
 
                 put("reason", "결과 없음");
                 put("input_line_number", lineNumber);

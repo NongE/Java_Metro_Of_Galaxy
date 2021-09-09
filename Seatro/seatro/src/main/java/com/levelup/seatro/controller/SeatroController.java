@@ -84,7 +84,7 @@ public class SeatroController {
         responseMessage.setPath(request.getRequestURI());
 
         // 반환할 데이터 저장
-        List<Map<String, String>> data = seatroService.getStationInfo(stationInfoRequest.getLineNumber(), stationInfoRequest.getStationName(), stationInfoRequest.getTime());
+        List<Map<String, Object>> data = seatroService.getStationInfo(stationInfoRequest.getLineNumber(), stationInfoRequest.getStationName(), stationInfoRequest.getTime());
 
         responseMessage.setData(data);
 
