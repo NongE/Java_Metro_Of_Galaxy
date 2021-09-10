@@ -104,17 +104,7 @@ public class SeatroService {
 
                 stationInfo.put("direction", getSurroundStation.getSurroundStation());
 
-                List<String> cabin = new ArrayList<>();
-                cabin.add(index.getCabin1().toString());
-                cabin.add(index.getCabin2().toString());
-                cabin.add(index.getCabin3().toString());
-                cabin.add(index.getCabin4().toString());
-                cabin.add(index.getCabin5().toString());
-                cabin.add(index.getCabin6().toString());
-                cabin.add(index.getCabin7().toString());
-                cabin.add(index.getCabin8().toString());
-
-                stationInfo.put("cabin", cabin);
+                stationInfo.put("cabin", index.getAllCabin());
 
                 result.add(stationInfo);
             });

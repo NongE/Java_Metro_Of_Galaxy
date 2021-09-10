@@ -3,6 +3,8 @@ package com.levelup.seatro.database.entity;
 import com.levelup.seatro.database.emb.StationUsersEmb;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "station_detail_users")
@@ -72,17 +74,19 @@ public class StationDetailUsers {
         return cabin8;
     }
 
-    @Override
-    public String toString() {
-        return "StationDetailUsers{" +
-                "cabin1=" + cabin1 +
-                ", cabin2=" + cabin2 +
-                ", cabin3=" + cabin3 +
-                ", cabin4=" + cabin4 +
-                ", cabin5=" + cabin5 +
-                ", cabin6=" + cabin6 +
-                ", cabin7=" + cabin7 +
-                ", cabin8=" + cabin8 +
-                '}';
+    public List<Integer> getAllCabin(){
+
+        List<Integer> result = new ArrayList<>();
+        result.add(getCabin1());
+        result.add(getCabin2());
+        result.add(getCabin3());
+        result.add(getCabin4());
+        result.add(getCabin5());
+        result.add(getCabin6());
+        result.add(getCabin7());
+        result.add(getCabin8());
+
+        return result;
+
     }
 }
