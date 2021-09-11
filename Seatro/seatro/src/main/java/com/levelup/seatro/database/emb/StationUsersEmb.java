@@ -33,14 +33,4 @@ public class StationUsersEmb implements Serializable {
     public Integer getCheckInTime() {
         return checkInTime;
     }
-
-    @Override
-    public String toString() {
-        return "StationUsersEmb{" +
-                "lineNumber='" + lineNumber + '\'' +
-                ", stationName='" + stationName + '\'' +
-                ", direction='" + direction + '\'' +
-                ", checkInTime=" + checkInTime +
-                '}';
-    }
 }

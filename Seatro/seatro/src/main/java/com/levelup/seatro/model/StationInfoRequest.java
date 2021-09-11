@@ -37,12 +37,4 @@ public class StationInfoRequest {
         this.lineNumber = lineNumber;
     }
 
-    @Override
-    public String toString() {
-        return "StationInfoRequest{" +
-                "time=" + time +
-                ", stationName='" + stationName + '\'' +
-                ", lineNumber='" + lineNumber + '\'' +
-                '}';
-    }
 }

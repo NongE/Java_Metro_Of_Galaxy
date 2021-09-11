@@ -9,9 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,6 +56,7 @@ public class SeatroController {
     // 현 시간대에 이용객이 가장 많은 역사, 호선 정보 구하기
     private Map<String, Object> getPopularStation() {
 
+        // 현재 가장 인원이 많은 역사 임시 저장
         StationUsers _popularStation = seatroService.findPopularStation();
 
         Map<String, Object> stationInfo = new HashMap<>() {{

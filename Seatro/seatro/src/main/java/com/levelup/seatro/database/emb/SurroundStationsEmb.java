@@ -28,13 +28,5 @@ public class SurroundStationsEmb implements Serializable {
         return direction;
     }
 
-    @Override
-    public String toString() {
-        return "SurroundStationsEmb{" +
-                "lineNumber='" + lineNumber + '\'' +
-                ", stationName='" + stationName + '\'' +
-                ", direction=" + direction +
-                '}';
-    }
 }
 

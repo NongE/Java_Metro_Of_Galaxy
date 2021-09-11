@@ -11,6 +11,5 @@ import java.util.Optional;
 public interface StationUsersRepository extends JpaRepository<StationUsers, StationUsersEmb> {
 
     List<StationUsers> findByStationUsersEmbCheckInTimeOrderByPeopleDesc(Integer time);
-    //List<StationUsers> findByStationUsersEmbCheckInTimeOrderByStationUsersEmbCheckInTime(int time);
 
 }

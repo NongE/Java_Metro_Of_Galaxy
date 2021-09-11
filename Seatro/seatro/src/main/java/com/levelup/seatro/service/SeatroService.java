@@ -109,9 +109,9 @@ public class SeatroService {
                 result.add(stationInfo);
             });
 
-            // 오류 발생 시 아래로 반환
-        } else{
 
+        } else{
+            // 오류 발생 시 아래로 반환
             Map<String, Object> failResult = new HashMap<>() {{
 
                 put("reason", "결과 없음");

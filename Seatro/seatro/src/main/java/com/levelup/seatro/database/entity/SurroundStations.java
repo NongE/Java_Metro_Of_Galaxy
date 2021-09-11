@@ -25,10 +25,4 @@ public class SurroundStations {
         return surroundStation;
     }
 
-    @Override
-    public String toString() {
-        return "SurroundStations{" +
-                "surroundStation='" + surroundStation + '\'' +
-                '}';
-    }
 }
