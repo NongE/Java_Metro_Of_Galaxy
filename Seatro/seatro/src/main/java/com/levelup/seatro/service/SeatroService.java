@@ -61,12 +61,12 @@ public class SeatroService {
             stationList.clear();
             stationList.add(new HashMap() {
                 {
-                    put("line_number", "1호선");
-                    put("station_name", "시청역");
+                    put("line_number", "Not Found!");
+                    put("station_name", "Not Found!");
                 }
             });
 
-            result.put("status", HttpStatus.FOUND);
+            result.put("status", HttpStatus.OK);
             result.put("data", stationList);
 
         }
@@ -105,6 +105,10 @@ public class SeatroService {
                 stationInfo.put("direction", getSurroundStation.getSurroundStation());
 
                 stationInfo.put("cabin", index.getAllCabin());
+
+                stationInfo.put("first_time", "05:55");
+
+                stationInfo.put("last_time", "23:55");
 
                 result.add(stationInfo);
             });
